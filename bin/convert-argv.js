@@ -4,9 +4,6 @@ fs.existsSync = fs.existsSync || path.existsSync;
 const interpret = require("interpret");
 const prepareOptions = require("./prepareOptions");
 const webpackConfigurationSchema = require("./webpackConfigurationSchema.json");
-const validateSchema = require("webpack").validateSchema;
-const WebpackOptionsValidationError = require("webpack")
-	.WebpackOptionsValidationError;
 
 module.exports = function(...args) {
 	const argv = args[1] || args[0];
@@ -153,6 +150,10 @@ module.exports = function(...args) {
 	}
 
 	function processConfiguredOptions(options) {
+		const validateSchema = require("webpack").validateSchema;
+		const WebpackOptionsValidationError = require("webpack")
+			.WebpackOptionsValidationError;
+
 		const webpackConfigurationValidationErrors = validateSchema(
 			webpackConfigurationSchema,
 			options
